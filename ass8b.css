@@ -1,0 +1,39 @@
+#header{
+	text-align: center;
+	color: #3b5998 ;
+	font:Tahoma;
+}
+#btnLogin , #btnSignUp{
+    border: none;
+    background-color: #46a049;
+    padding: 14px 28px;
+    cursor: pointer;
+}
+#btnLogin:hover 
+{
+    background: #0b7dda;
+}
+#btnSignUp:hover 
+{
+    background: #FF3355;
+}
+
+
+/* #btnSubmitSignUp{
+	border: none; 
+    color: white; 
+    padding: 14px 28px; 
+    cursor: pointer; 
+}
+
+#btnSubmitLogin{
+	border: none; 
+    color: white; 
+    padding: 14px 28px;
+    cursor: pointer; 
+}
+#btnSubmitSignUp {background-color: #4CAF50;} 
+#btnSubmitSignUp:hover {background-color: #46a049;}
+
+#btnSubmitLogin {background-color: #2196F3;} 
+#btnSubmitLogin:hover {background: #0b7dda;}  */

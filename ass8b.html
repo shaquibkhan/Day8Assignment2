@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="ass8b.css">
+	</head>
+	
+	<body>
+	<h1 id="header">MySelfie Tech</h1><br><br><br>
+		<!--div for front page Visibility is visible as this is the first page visible initially-->
+		<div id="main-front-page" style="visibility:visible; text-align: center;">
+		<button id="btnLogin">Login</button>
+		<button id="btnSignUp">Sign Up</button>
+		</div>
+		<!--div for login with email and password. Visbility is hidden initially and later manipulated through jquery-->
+	<div id="login-page" style="visibility:hidden; text-align: center;">
+		Login
+		<form id="frm-login" style="text-align: center;">
+	<input id="login-email"type="email" placeholder="email"><br>
+		<input id="login-password" type="password" placeholder="password"><br>
+		<input id="btnSubmitLogin" type="submit">
+		</form>	
+		<span id="loginErrMsg"></span>
+		<button id="btnBackLogin" style="text-align: center;">Back</button>
+		</div>
+		<!--div for sign up with name, email and password-->
+		<div id="signup-page" style="visibility:hidden; text-align: center;">
+		Sign Up
+		<form id="frm-sign-up" style="text-align: center;">
+	<input id="sign-up-name"type="text" placeholder="name"><br>
+		<input id="sign-up-email"type="email" placeholder="email"><br>
+		<input id="sign-up-password"type="password" placeholder="password"><br>
+		<input id="btnSubmitSignUp"type="submit">
+		</form>		
+		<button id="btnBackSignUp" style="text-align: center;">Back</button>
+		</div>
+		<!--div for Welcome page on successful login-->
+	<div id="welcome-page" style="visibility:hidden; text-align: center;">
+	<span id="welcome-span">Welocme to </span><span id="welcomeName"></span>
+			<button id="btnLogOut">Logout</button>
+		</div>
+		<!--start of jquery and Javascript-->
+	<script>
+	//on click of Logout button in welcome page, go to Main page
+	$("#btnLogOut").on("click",function(){
+		$("#main-front-page").css("visibility", "visible");
+		$("#main-front-page").show();
+	
+		$("#welcome-page").css("visibility", "hidden");
+		$("#welcome-page").hide();
+	
+	});
+	
+	//on click of submit button in Login page
+	$("#btnSubmitLogin").on("click",function(event){
+	event.preventDefault(); //to prevent it from going back to Main front page
+	var signedUp_email=localStorage.getItem("email");
+	//alert("Email entered at sign up time ="+signedUp_email);
+	var signedUp_password=localStorage.getItem("password");
+	//alert("password entered at sign up time="+signedUp_password);
+	//alert("Login email entered by user ="+document.getElementById("login-email").value.trim());
+	//alert("Login password entered by user ="+document.getElementById("login-password").value.trim());
+	if (  (document.getElementById("login-email").value.trim()==signedUp_email.trim())  &&
+	        (document.getElementById("login-password").value.trim()==signedUp_password.trim())  ){
+		//if both email and password entered at login time matches the ones entered at Sign Up time then login is successful
+	alert("login successful");
+		//logged_in= true;
+		$("#welcome-page").css("visibility", "visible"); 
+		$("#welcome-page #welcomeName").text(localStorage.getItem("signedUpName")); //retrieve the Name and display in welcome page
+		$("#welcome-page").show();    
+	
+	//hide all other pages
+		$("#main-front-page").css("visibility", "hidden");   
+		$("#main-front-page").hide();
+	
+		$("#login-page").css("visibility", "hidden");  
+	$("#login-page").hide();
+	
+	$("#signup-page").css("visibility", "hidden");  
+		$("#signup-page").hide();
+	
+	  }//end if successful login
+	else{
+		//login failed as username or password is incorrect
+	alert("Login failed");
+	$("#login-page #loginErrMsg").text("loginId or password incorrect"); //show the error message in login page
+	$("#login-page").show();
+	$("#main-front-page").hide();
+	$("#signup-page").hide();
+	$("#welcome-page").hide();
+	    }
+	});
+	//on click of Login button - show the Login div and hide all others
+	$("#btnLogin").on("click", function() {
+	$("#main-front-page").css("visibility","hidden");
+	$("#main-front-page").hide();
+	$("#login-page").css("visibility","visible");
+	$("#login-page").show();
+	});
+	//on click of Back button from Login page, go to Main page
+	$("#btnBackLogin").on("click",function() {
+	$("#main-front-page").css("visibility","visible");	
+	$("#main-front-page").show();
+	$("#login-page").css("visibility","hidden");
+	$("#login-page").hide();
+	$("#signup-page").css("visibility","hidden");
+	$("#signup-page").hide();
+	});
+	//on click of Back button from Sign Up page, go to Main page
+	$("#btnBackSignUp").on("click",function() {
+	$("#main-front-page").css("visibility","visible");	
+	$("#main-front-page").show();
+	$("#login-page").css("visibility","hidden");
+	$("#login-page").hide();
+	$("#login-page").css("visibility","hidden");
+	$("#signup-page").hide();
+	});
+	//on click of Sign up button from Main page, go to Sign Up page. Hide all other pages / divs
+	$("#btnSignUp").on("click", function() {
+	$("#main-front-page").css("visibility","hidden");	
+	$("#main-front-page").hide();
+	$("#signup-page").css("visibility","visible");
+	$("#signup-page").show();
+	});
+	//on click of submit button in sign up page, set the localStorage to all the values entered by user in the form and go to Main front page
+	$("#btnSubmitSignUp").on("click",function(){
+	localStorage.setItem("signedUpName",$("#sign-up-name").val());	
+	localStorage.setItem("email",$("#sign-up-email").val());
+	localStorage.setItem("password",$("#sign-up-password").val());	
+	
+	$("#main-front-page").css("visibility","visible");
+	$("#main-front-page").show();
+	
+	$("#login-page").css("visibility","hidden");
+	$("#login-page").hide();
+	});
+	</script>
+	</body>
+
